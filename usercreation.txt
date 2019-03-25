@@ -1,0 +1,30 @@
+Playbook 
+
+- name: Playbook for giving the access to users
+  remote_user: devops
+  become: yes
+  become_method: sudo
+  become_user: root
+  gather_facts:	true
+  hosts: servera,serverb,serverc		
+  tasks:
+  - name: creating the users		
+  user:
+   name: "{{item}}"
+   shell: /bin/bash
+   groups: admin
+   generate_ssh_key: yes
+   ssh_key_file: .ssh/id_rsa
+  with_items:
+  - newusers
+
+==================================
+
+We will put all the users in newusers file.
+
+we will put all the hostname(servera,serverb,serverc..etc) in inventory file which 
+will be taken as input by hosts as mentioned in Playbook.
+
+	
+   
+	
